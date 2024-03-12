@@ -15,11 +15,17 @@
               <img class="image mt-5" src="https://i.imgur.com/M8VyA2h.png" />
             </div>
             <div class="row px-3 mt-3 mb-3">
-              <h1 class="large-font mr-3">{{ RoundtheTemp() }}&#176;</h1> <!-- !temp  --> 
-               <strong> {{ weather }} </strong>   <!-- !weater  -->
+              <h1 class="large-font mr-3">{{ RoundtheTemp() }}&#176;</h1>
+              <!-- !temp  -->
+              <strong> {{ weather }} </strong>
+              <!-- !weater  -->
               <div class="d-flex flex-column mr-3">
                 <p>{{ city.charAt(0).toUpperCase() + city.slice(1) }}</p>
-                <small>{{hours}}:{{mins}} - {{weekdayName}}, {{date}} {{mothName}} '{{year}}</small> <!-- !time  -->
+                <small
+                  >{{ hours }}:{{ mins }} - {{ weekdayName }}, {{ date }}
+                  {{ mothName }} '{{ year }}</small
+                >
+                <!-- !time  -->
               </div>
               <div class="d-flex flex-column text-center">
                 <!-- <h3 class="fa fa-sun-o mt-4"></h3> -->
@@ -32,10 +38,15 @@
               <input
                 type="text"
                 name="location"
+                #box
+                (keyup.enter)="SearchCity(box.value)"
                 placeholder="Another location"
-                class="mb-5"
+                class="mb-5 SearchCity"
               />
-              <div class="fa fa-search mb-5 mr-0 text-center"></div>
+              <div
+                (click)="SearchCity(box.value)"
+                class="fa fa-search mb-5 mr-0 text-center"
+              ></div>
             </div>
             <div class="mr-5">
               <p class="light-text suggestion">Birmingham</p>
@@ -60,7 +71,7 @@
                     <p class="light-text suggestion">Humidity</p>
                   </div>
                   <div class="col-6">
-                    <p class="ml-auto">{{humidity}}%</p>
+                    <p class="ml-auto">{{ humidity }}%</p>
                   </div>
                 </div>
                 <div class="row px-3">
@@ -68,7 +79,7 @@
                     <p class="light-text suggestion">Wind</p>
                   </div>
                   <div class="col-6">
-                    <p class="ml-auto suggestion">{{wind}}km/h</p>
+                    <p class="ml-auto suggestion">{{ wind }}km/h</p>
                   </div>
                 </div>
                 <div class="row px-3">

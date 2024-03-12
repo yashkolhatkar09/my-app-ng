@@ -20,6 +20,7 @@
   overflow-x: hidden;
   height: 100%;
   background-image: linear-gradient(#81d4fa, #2196f3);
+  /* background-image: linear-gradient(#153444, #102434); */
   background-repeat: no-repeat;
 }
 
@@ -27,6 +28,16 @@
   width: 94%;
 }
 
+img {
+  pointer-events: none;
+}
+
+img.no-select {
+  user-select: none;
+  -moz-user-select: none; /* Firefox */
+  -webkit-user-select: none; /* Safari and Chrome */
+  -ms-user-select: none; /* IE/Edge */
+}
 .card1 {
   background-image: linear-gradient(#2196f3, #81d4fa);
   padding: 30px 20px 30px 50px;

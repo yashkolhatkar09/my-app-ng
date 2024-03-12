@@ -51,16 +51,16 @@ export class WeatherCardComponent {
   mothName = this.months[this.month];
   weekdayName = this.weekdays[this.dayOfWeek];
 
-    // updateTime(): void {
+  // updateTime(): void {
   //   this.mins = this.now.getMinutes();
   //   this.hours = this.now.getHours() % 12 || 12;
   // }
   // todo : update every mins!!
   // intervalId: NodeJS.Timeout = setInterval(this.updateTime, 60000);
 
-//==========================================================================================================================
+  //==========================================================================================================================
   apikey = '1ccbda8b761658c716c51b4287213df7';
-  city = 'pune';
+  city = 'New Delhi';
   units = 'metric';
   url = `https://api.openweathermap.org/data/2.5/weather?q=${this.city}&appid=${this.apikey}&units=${this.units}`;
 
@@ -69,7 +69,6 @@ export class WeatherCardComponent {
   temp: number = 0;
   humidity: number = 0;
   wind: number = 0;
-
 
   async getWeatherData() {
     const response = await fetch(this.url);
@@ -95,5 +94,12 @@ export class WeatherCardComponent {
 
   RoundtheTemp(): number {
     return Math.ceil(this.temp);
+  }
+
+  SearchCity(val: string) {
+    // console.log(val);
+    this.city = val;
+    this.url = `https://api.openweathermap.org/data/2.5/weather?q=${this.city}&appid=${this.apikey}&units=${this.units}`;
+    this.getWeatherData();
   }
 }
