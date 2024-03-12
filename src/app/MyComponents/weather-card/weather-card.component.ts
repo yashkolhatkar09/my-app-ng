@@ -1,70 +1,99 @@
 import { Component } from '@angular/core';
+import { log } from 'console';
 
 @Component({
   selector: 'app-weather-card',
+  standalone: true,
+  imports: [],
   templateUrl: './weather-card.component.html',
-  styleUrls: ['./weather-card.component.css'],
+  styleUrl: './weather-card.component.css',
 })
 export class WeatherCardComponent {
-  lat = 0;
-  lon = 0;
-  parsed: any;
+  constructor() {}
 
-  getCurrentLocation = () => {
-    return new Promise((resolve, reject) => {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-          (position) => {
-            const latitude = position.coords.latitude;
-            const longitude = position.coords.longitude;
-
-            console.log('Latitude:', latitude);
-            console.log('Longitude:', longitude);
-
-            this.lat = latitude;
-            this.lon = longitude;
-
-            resolve({ latitude, longitude });
-          },
-          (error) => {
-            reject(error);
-          }
-        );
-      }
-    });
-  };
-
-  apikey = 'b5a97ed6ab6e4075b65135141240903';
-
-  getAPI = async () => {
-    try {
-      let api = `https://api.weatherapi.com/v1/current.json?key=${this.apikey}&q=${this.lat},${this.lon}`;
-      let response = await fetch(api);
-      this.parsed = await response.json();
-      this.updateWeatherData();
-    } catch (error) {
-      console.error('Error fetching weather data:', error);
-    }
-  };
-
-  constructor() {
-    this.getCurrentLocation().then(() => {
-      this.getAPI();
-    });
+  ngOnInit(): void {
+    this.getWeatherData();
   }
 
-  img: string = '';
+  now = new Date();
+
+  mins = this.now.getMinutes();
+  hours = this.now.getHours() % 12 || 12;
+  dayOfWeek = this.now.getDay();
+  date = this.now.getDate();
+  month = this.now.getMonth();
+  year = this.now.getFullYear() - 2000;
+
+  weekdays = [
+    'Sunday',
+    'Monday',
+    'Tuesday',
+    'Wednesday',
+    'Thursday',
+    'Friday',
+    'Saturday',
+  ];
+
+  months = [
+    'Jan',
+    'Feb',
+    'Mar',
+    'April',
+    'May',
+    'June',
+    'July',
+    'Aug',
+    'Sept',
+    'Oct',
+    'Nov',
+    'Dec',
+  ];
+  mothName = this.months[this.month];
+  weekdayName = this.weekdays[this.dayOfWeek];
+
+    // updateTime(): void {
+  //   this.mins = this.now.getMinutes();
+  //   this.hours = this.now.getHours() % 12 || 12;
+  // }
+  // todo : update every mins!!
+  // intervalId: NodeJS.Timeout = setInterval(this.updateTime, 60000);
+
+//==========================================================================================================================
+  apikey = '1ccbda8b761658c716c51b4287213df7';
+  city = 'pune';
+  units = 'metric';
+  url = `https://api.openweathermap.org/data/2.5/weather?q=${this.city}&appid=${this.apikey}&units=${this.units}`;
+
+  cityName: string = '';
   weather: string = '';
+  temp: number = 0;
   humidity: number = 0;
-  summary: string = '';
-  location: string = '';
   wind: number = 0;
-  updateWeatherData() {
-    this.img = `../../../assets/Images/${this.parsed.current.condition.text}.jpg`;
-    this.weather = this.parsed.current.condition.text;
-    this.humidity = this.parsed.current.humidity;
-    this.summary = this.parsed.current.condition.text;
-    this.location = this.parsed.location.name;
-    this.wind = this.parsed.current.wind_kph;
+
+
+  async getWeatherData() {
+    const response = await fetch(this.url);
+    let data = await response.json();
+    console.log(data);
+
+    this.cityName = data.name;
+    console.log(this.cityName);
+
+    this.temp = data.main.temp;
+    console.log(this.temp);
+
+    this.humidity = data.main.humidity;
+    console.log(this.humidity);
+
+    this.wind = data.wind.speed;
+    console.log(this.wind);
+
+    this.weather = 'Clear';
+  }
+
+  img = `src/assets/Images/${this.weather}.jpg`;
+
+  RoundtheTemp(): number {
+    return Math.ceil(this.temp);
   }
 }

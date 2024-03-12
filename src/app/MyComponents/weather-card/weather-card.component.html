@@ -1,28 +1,105 @@
-<div class="card mb-3" style="max-width: 540px">
-  <div class="row g-0">
-    <div class="col-md-4">
-      <!-- <img src="{{ img }}" class="" alt="{{ img }}" /> -->
-      <img
-        src="{{ img }}"
-        alt="{{ weather }}"
-        class="img-fluid rounded-start"
-      />
-    </div>
-    <div class="col-md-8">
-      <div class="card-body">
-        <h5 class="card-title">{{ weather }}</h5>
-        <p class="card-text"></p>
-        <hr />
-        Humidity: {{ humidity }}
-        <hr />
-        Wind Spped : {{ wind }} Km/Hr
-        <hr />
-        <p class="card-text">
-          <small class="text-body-secondary"
-            >Last updated 3 mins ago &#8226; {{ location }}</small
-          >
-        </p>
+<!-- <!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head> -->
+<div class="body-container">
+  <div class="snippet-body">
+    <div class="container-fluid px-1 px-sm-3 py-5 mx-auto">
+      <div class="row d-flex justify-content-center">
+        <div class="row card0">
+          <div class="card1 col-lg-8 col-md-7">
+            <!-- <small>the.weather</small> -->
+            <div class="text-center">
+              <img class="image mt-5" src="https://i.imgur.com/M8VyA2h.png" />
+            </div>
+            <div class="row px-3 mt-3 mb-3">
+              <h1 class="large-font mr-3">{{ RoundtheTemp() }}&#176;</h1> <!-- !temp  --> 
+               <strong> {{ weather }} </strong>   <!-- !weater  -->
+              <div class="d-flex flex-column mr-3">
+                <p>{{ city.charAt(0).toUpperCase() + city.slice(1) }}</p>
+                <small>{{hours}}:{{mins}} - {{weekdayName}}, {{date}} {{mothName}} '{{year}}</small> <!-- !time  -->
+              </div>
+              <div class="d-flex flex-column text-center">
+                <!-- <h3 class="fa fa-sun-o mt-4"></h3> -->
+                <!-- <small>Sunny</small> -->
+              </div>
+            </div>
+          </div>
+          <div class="card2 col-lg-4 col-md-5">
+            <div class="row px-3">
+              <input
+                type="text"
+                name="location"
+                placeholder="Another location"
+                class="mb-5"
+              />
+              <div class="fa fa-search mb-5 mr-0 text-center"></div>
+            </div>
+            <div class="mr-5">
+              <p class="light-text suggestion">Birmingham</p>
+              <p class="light-text suggestion">Manchester</p>
+              <p class="light-text suggestion">New York</p>
+              <p class="light-text suggestion">California</p>
+
+              <div class="line my-5"></div>
+
+              <div class="container">
+                <p>Weather Details</p>
+                <div class="row px-3">
+                  <div class="col-6">
+                    <p class="light-text suggestion">Cloudy</p>
+                  </div>
+                  <div class="col-6">
+                    <p class="ml-auto">12%</p>
+                  </div>
+                </div>
+                <div class="row px-3">
+                  <div class="col-6">
+                    <p class="light-text suggestion">Humidity</p>
+                  </div>
+                  <div class="col-6">
+                    <p class="ml-auto">{{humidity}}%</p>
+                  </div>
+                </div>
+                <div class="row px-3">
+                  <div class="col-6">
+                    <p class="light-text suggestion">Wind</p>
+                  </div>
+                  <div class="col-6">
+                    <p class="ml-auto suggestion">{{wind}}km/h</p>
+                  </div>
+                </div>
+                <div class="row px-3">
+                  <div class="col-6">
+                    <p class="light-text suggestion">Rain</p>
+                  </div>
+                  <div class="col-6">
+                    <p class="ml-auto">0mm</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="line mt-3"></div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
+    <script
+      type="text/javascript"
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"
+    ></script>
+    <script type="text/javascript" src="#"></script>
+    <script type="text/javascript" src="#"></script>
+    <script type="text/javascript" src="#"></script>
+    <script type="text/javascript"></script>
+    <script type="text/javascript">
+      var myLink = document.querySelector('a[href="#"]');
+      myLink.addEventListener("click", function (e) {
+        e.preventDefault();
+      });
+    </script>
   </div>
 </div>
