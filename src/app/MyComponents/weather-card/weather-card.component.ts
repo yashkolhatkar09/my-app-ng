@@ -17,8 +17,9 @@ export class WeatherCardComponent {
 
   now = new Date();
 
-  mins = this.now.getMinutes();
-  hours = this.now.getHours() % 12 || 12;
+  mins = this.now.getMinutes().toString().padStart(2, '0');
+  hours = this.now.getHours().toString().padStart(2, '0');
+
   dayOfWeek = this.now.getDay();
   date = this.now.getDate();
   month = this.now.getMonth();
@@ -58,6 +59,27 @@ export class WeatherCardComponent {
   // todo : update every mins!!
   // intervalId: NodeJS.Timeout = setInterval(this.updateTime, 60000);
 
+  timezoneOffsetSec: number = 19800;
+
+  timezoneOffsetMs: number = this.timezoneOffsetSec * 1000;
+
+  localTimeMs: number = this.now.getTime() + this.timezoneOffsetMs;
+
+  localTime: Date = new Date(this.localTimeMs);
+
+  // Format the local time as desired (e.g., HH:mm)
+  formattedLocalTime: string = `${this.localTime
+    .getHours()
+    .toString()
+    .padStart(2, '0')}:${this.localTime
+    .getMinutes()
+    .toString()
+    .padStart(2, '0')}`;
+
+  unixTimestamp = 1710291781 * 1000;
+  dat = new Date(this.unixTimestamp);
+  sunrise = this.dat.toLocaleString(); // Adjust formatting as needed
+
   //==========================================================================================================================
   apikey = '1ccbda8b761658c716c51b4287213df7';
   city = 'New Delhi';
@@ -69,25 +91,33 @@ export class WeatherCardComponent {
   temp: number = 0;
   humidity: number = 0;
   wind: number = 0;
+  pressure: number = 0;
 
   async getWeatherData() {
     const response = await fetch(this.url);
     let data = await response.json();
     console.log(data);
 
+    if (data.cod === 404) {
+      return;
+    }
     this.cityName = data.name;
-    console.log(this.cityName);
+    // console.log(this.cityName);
 
     this.temp = data.main.temp;
-    console.log(this.temp);
+    // console.log(this.temp);
 
     this.humidity = data.main.humidity;
-    console.log(this.humidity);
+    // console.log(this.humidity);
 
     this.wind = data.wind.speed;
-    console.log(this.wind);
+    // console.log(this.wind);
 
-    this.weather = 'Clear';
+    this.weather = data.weather[0].main;
+
+    this.pressure = data.main.pressure;
+
+    console.log(this.sunrise);
   }
 
   img = `src/assets/Images/${this.weather}.jpg`;
@@ -96,10 +126,25 @@ export class WeatherCardComponent {
     return Math.ceil(this.temp);
   }
 
+  //  ChangeBackground(val: string) {
+  //   if (val === "Clouds") {
+
+  //   }
+  // }
+
+  tempCity: string = '';
+
   SearchCity(val: string) {
     // console.log(val);
-    this.city = val;
-    this.url = `https://api.openweathermap.org/data/2.5/weather?q=${this.city}&appid=${this.apikey}&units=${this.units}`;
+
+    if (this.city === val || !val.trim()) {
+      return;
+    }
+
+    this.tempCity = val;
+    this.url = `https://api.openweathermap.org/data/2.5/weather?q=${this.tempCity}&appid=${this.apikey}&units=${this.units}`;
+
     this.getWeatherData();
+    this.city = this.tempCity;
   }
 }

@@ -40,19 +40,37 @@
                 name="location"
                 #box
                 (keyup.enter)="SearchCity(box.value)"
+                (keyup.enter)="box.value = ''"
                 placeholder="Another location"
                 class="mb-5 SearchCity"
+                autocomplete="off"
               />
               <div
                 (click)="SearchCity(box.value)"
+                (click)="box.value = ''"
                 class="fa fa-search mb-5 mr-0 text-center"
               ></div>
             </div>
             <div class="mr-5">
-              <p class="light-text suggestion">Birmingham</p>
-              <p class="light-text suggestion">Manchester</p>
-              <p class="light-text suggestion">New York</p>
-              <p class="light-text suggestion">California</p>
+              <p (click)="SearchCity('London')" class="light-text suggestion">
+                London
+              </p>
+              <p
+                (click)="SearchCity('Manchester')"
+                class="light-text suggestion"
+              >
+                Manchester
+              </p>
+              <p (click)="SearchCity('Kolkata')" class="light-text suggestion">
+                Kolkata
+              </p>
+
+              <p
+                (click)="SearchCity('California')"
+                class="light-text suggestion"
+              >
+                California
+              </p>
 
               <div class="line my-5"></div>
 
@@ -84,33 +102,53 @@
                 </div>
                 <div class="row px-3">
                   <div class="col-6">
-                    <p class="light-text suggestion">Rain</p>
+                    <p class="light-text suggestion">Pressure</p>
                   </div>
                   <div class="col-6">
-                    <p class="ml-auto">0mm</p>
+                    <p class="ml-auto">{{ pressure }} hPa</p>
                   </div>
                 </div>
               </div>
 
               <div class="line mt-3"></div>
+
+              <img
+                src="https://cdn2.iconfinder.com/data/icons/weather-color-2/500/weather-07-512.png"
+                alt=""
+                srcset=""
+                style="height: 60px"
+              />
+              <p style="display: inline-block" class="light-text suggestion">
+                Sunrise : 6:32 am
+              </p>
+              <p></p>
+              <img
+                src="https://cdn2.iconfinder.com/data/icons/weather-color-2/500/weather-09-512.png"
+                alt=""
+                srcset=""
+                style="height: 60px"
+              />
+              <p style="display: inline-block" class="light-text suggestion">
+                Sunset : 6:23 pm
+              </p>
             </div>
           </div>
         </div>
+        <script
+          type="text/javascript"
+          src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"
+        ></script>
+        <script type="text/javascript" src="#"></script>
+        <script type="text/javascript" src="#"></script>
+        <script type="text/javascript" src="#"></script>
+        <script type="text/javascript"></script>
+        <script type="text/javascript">
+          var myLink = document.querySelector('a[href="#"]');
+          myLink.addEventListener("click", function (e) {
+            e.preventDefault();
+          });
+        </script>
       </div>
     </div>
-    <script
-      type="text/javascript"
-      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"
-    ></script>
-    <script type="text/javascript" src="#"></script>
-    <script type="text/javascript" src="#"></script>
-    <script type="text/javascript" src="#"></script>
-    <script type="text/javascript"></script>
-    <script type="text/javascript">
-      var myLink = document.querySelector('a[href="#"]');
-      myLink.addEventListener("click", function (e) {
-        e.preventDefault();
-      });
-    </script>
   </div>
 </div>
