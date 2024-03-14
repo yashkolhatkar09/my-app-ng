@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { log } from 'console';
 
 @Component({
@@ -96,13 +96,14 @@ export class WeatherCardComponent {
   async getWeatherData() {
     const response = await fetch(this.url);
     let data = await response.json();
-    console.log(data);
+    // console.log(data);
 
     if (data.cod === 404) {
       return;
     }
     this.cityName = data.name;
     // console.log(this.cityName);
+    // this.onCitySelected.emit(this.cityName);
 
     this.temp = data.main.temp;
     // console.log(this.temp);
@@ -117,7 +118,7 @@ export class WeatherCardComponent {
 
     this.pressure = data.main.pressure;
 
-    console.log(this.sunrise);
+    // console.log(this.sunrise);
   }
 
   img = `src/assets/Images/${this.weather}.jpg`;
