@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-
+import { log } from 'console';
+import { TestServiceService } from '../../test-service.service';
 @Component({
   selector: 'app-navbr',
   standalone: true,
@@ -8,5 +9,12 @@ import { Component } from '@angular/core';
   styleUrl: './navbr.component.css',
 })
 export class NavbrComponent {
+  constructor(public TestServiceService: TestServiceService) {}
   title = 'WeatherWise';
+  temp = 'C';
+
+  Changetemp() {
+    this.temp = this.temp === 'C' ? 'F' : 'C';
+    this.TestServiceService.setTempType(this.temp);
+  }
 }

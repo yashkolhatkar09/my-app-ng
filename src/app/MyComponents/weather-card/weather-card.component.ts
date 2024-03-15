@@ -1,6 +1,6 @@
 import { Component, input } from '@angular/core';
 import { log } from 'console';
-
+import { TestServiceService } from '../../test-service.service';
 @Component({
   selector: 'app-weather-card',
   standalone: true,
@@ -9,10 +9,16 @@ import { log } from 'console';
   styleUrl: './weather-card.component.css',
 })
 export class WeatherCardComponent {
-  constructor() {}
+  constructor(public TestServiceService: TestServiceService) {}
+
+  typeTemp: string = '';
 
   ngOnInit(): void {
     this.getWeatherData();
+    this.TestServiceService.type$.subscribe((typeTemp) => {
+      console.log('Type Card : ', typeTemp);
+      this.typeTemp = typeTemp;
+    });
   }
 
   now = new Date();
@@ -92,6 +98,8 @@ export class WeatherCardComponent {
   humidity: number = 0;
   wind: number = 0;
   pressure: number = 0;
+  feels_like: number = 0;
+  // link: string = `https://www.accuweather.com/en/in/${this.city}/204848/daily-weather-forecast/204848`;
 
   async getWeatherData() {
     const response = await fetch(this.url);
@@ -107,6 +115,7 @@ export class WeatherCardComponent {
 
     this.temp = data.main.temp;
     // console.log(this.temp);
+    this.feels_like = data.main.feels_like;
 
     this.humidity = data.main.humidity;
     // console.log(this.humidity);
@@ -117,27 +126,16 @@ export class WeatherCardComponent {
     this.weather = data.weather[0].main;
 
     this.pressure = data.main.pressure;
-
-    // console.log(this.sunrise);
+    // console.log(this.type);
   }
 
-  img = `src/assets/Images/${this.weather}.jpg`;
-
-  RoundtheTemp(): number {
-    return Math.ceil(this.temp);
+  RoundtheNum(num: number): number {
+    return Math.ceil(num);
   }
-
-  //  ChangeBackground(val: string) {
-  //   if (val === "Clouds") {
-
-  //   }
-  // }
 
   tempCity: string = '';
 
   SearchCity(val: string) {
-    // console.log(val);
-
     if (this.city === val || !val.trim()) {
       return;
     }

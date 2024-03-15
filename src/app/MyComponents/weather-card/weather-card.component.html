@@ -15,7 +15,9 @@
               <img class="image mt-5" src="https://i.imgur.com/M8VyA2h.png" />
             </div>
             <div class="row px-3 mt-3 mb-3">
-              <h1 class="large-font mr-3">{{ RoundtheTemp() }}&#176;</h1>
+              <h1 class="large-font mr-3">
+                {{ RoundtheNum(this.temp) }}&#176;C
+              </h1>
               <!-- !temp  -->
               <strong> {{ weather }} </strong>
               <!-- !weater  -->
@@ -78,10 +80,11 @@
                 <p>Weather Details</p>
                 <div class="row px-3">
                   <div class="col-6">
-                    <p class="light-text suggestion">Cloudy</p>
+                    <!-- <a href = {{link}} class="light-text suggestion">Feels Like</a> -->
+                    <p class="light-text suggestion">Feels Like</p>
                   </div>
                   <div class="col-6">
-                    <p class="ml-auto">12%</p>
+                    <p class="ml-auto">{{ RoundtheNum(feels_like) }}&#176;C</p>
                   </div>
                 </div>
                 <div class="row px-3">
@@ -89,7 +92,7 @@
                     <p class="light-text suggestion">Humidity</p>
                   </div>
                   <div class="col-6">
-                    <p class="ml-auto">{{ humidity }}%</p>
+                    <p class="ml-auto">{{ humidity }} %</p>
                   </div>
                 </div>
                 <div class="row px-3">
