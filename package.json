@@ -22,6 +22,7 @@
     "@angular/router": "^17.2.0",
     "@angular/ssr": "^17.2.3",
     "bootstrap": "^5.3.3",
+    "cities.json": "^1.1.34",
     "express": "^4.18.2",
     "jquery": "^3.7.1",
     "rxjs": "~7.8.0",

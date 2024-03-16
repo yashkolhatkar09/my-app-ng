@@ -30,6 +30,7 @@
 
 .card0 {
   width: 94%;
+  height: 100%;
 }
 
 img {
@@ -44,7 +45,6 @@ img.no-select {
 }
 .card1 {
   background-image: linear-gradient(#2196f3, #81d4fa);
-  /* background-image: linear-gradient(#2196f3, #81d4fa); */
   padding: 30px 20px 30px 50px;
 }
 

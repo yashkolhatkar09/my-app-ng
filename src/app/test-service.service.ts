@@ -6,7 +6,9 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root',
 })
 export class TestServiceService {
-  // constructor(public WeatherCardComponent: WeatherCardComponent) {}
+  constructor() {
+    this.typeTemp.next('C');
+  }
 
   typeTemp = new BehaviorSubject<string>('');
   type$ = this.typeTemp.asObservable();

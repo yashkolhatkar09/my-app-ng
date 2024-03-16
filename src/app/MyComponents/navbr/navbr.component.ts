@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { log } from 'console';
 import { TestServiceService } from '../../test-service.service';
 @Component({
   selector: 'app-navbr',

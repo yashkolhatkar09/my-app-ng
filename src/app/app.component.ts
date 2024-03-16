@@ -13,5 +13,5 @@ import { WeatherCardComponent } from './MyComponents/weather-card/weather-card.c
 export class AppComponent {
   selectedCity: string = ''; // Initialize selectedCity property
 
-  title = 'Weather Wise';
+  // title = 'WeatherWise';
 }
