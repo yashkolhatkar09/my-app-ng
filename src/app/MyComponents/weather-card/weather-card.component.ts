@@ -172,6 +172,8 @@ export class WeatherCardComponent {
       // console.log(data);
 
       // Process weather data as before
+
+      this.city = data.name;
       this.temp = data.main.temp;
       this.feels_like = data.main.feels_like;
       this.humidity = data.main.humidity;
@@ -195,44 +197,12 @@ export class WeatherCardComponent {
 
   tempCity: string = '';
 
-  // SearchCity(val: string) {
-  //   if (this.city === val || !val.trim()) {
-  //     return;
-  //   }
-
-  //   this.tempCity = val;
-  //   this.url = `https://api.openweathermap.org/data/2.5/weather?q=${this.tempCity}&appid=${this.apikey}&units=${this.units}`;
-
-  //   this.getWeatherData();
-  //   this.city = this.tempCity;
-  // }
-
-  async SearchCity(val: string): Promise<void> {
-    if (this.city !== val && val.trim()) {
-      this.tempCity = this.capitalizeCity(val);
-
-      this.url = `https://api.openweathermap.org/data/2.5/weather?q=${this.tempCity}&appid=${this.apikey}&units=${this.units}`;
-
-      try {
-        const success = await this.getWeatherData();
-        if (success) {
-          this.city = this.tempCity;
-        } else {
-          this.tempCity = this.city;
-        }
-      } catch (error) {
-        console.error('Error fetching weather data:', error);
-        this.tempCity = this.city;
-      }
+  SearchCity(val: string) {
+    if (val.trim() === '' || this.city !== val) {
+      return;
     }
-  }
-
-  capitalizeCity(city: string): string {
-    return city
-      .toLowerCase()
-      .split(' ')
-      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-      .join(' ');
+    this.url = `https://api.openweathermap.org/data/2.5/weather?q=${val}&appid=${this.apikey}&units=${this.units}`;
+    this.getWeatherData();
   }
 
   calculateLocalTime(timestamp: number, timezoneOffset: number): string {
@@ -255,7 +225,7 @@ export class WeatherCardComponent {
     );
 
     const formattedMinutes: string = minutes.toString().padStart(2, '0');
-    console.log(`${formattedHours}:${formattedMinutes}`);
+    // console.log(`${formattedHours}:${formattedMinutes}`);
 
     return `${formattedHours}:${formattedMinutes}`;
   }
