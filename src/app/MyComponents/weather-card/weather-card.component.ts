@@ -27,7 +27,7 @@ export class WeatherCardComponent {
   }
 
   now = new Date();
-
+  i: number = 1;
   hours: number = this.now.getHours(); // Convert hours to 12-hour fo[rmat
   meridiem: string = this.AmorPm(this.hours);
   formattedHours: string = this.Makeit12hr(this.hours)
@@ -98,6 +98,8 @@ export class WeatherCardComponent {
 
   localTime: Date = new Date(this.localTimeMs);
 
+  timeInterval: any;
+
   // Format the local time as desired (e.g., HH:mm)
   formattedLocalTime: string = `${this.localTime
     .getHours()
@@ -107,7 +109,53 @@ export class WeatherCardComponent {
     .toString()
     .padStart(2, '0')}`;
 
-  //==========================================================================================================================
+  ChangeMins() {
+    const now1 = new Date();
+    this.minutes = now1.getMinutes().toString().padStart(2, '0');
+    if (this.minutes == '00') {
+      this.hours = now1.getHours();
+      this.meridiem = this.AmorPm(this.hours);
+      this.formattedHours = this.Makeit12hr(this.hours)
+        .toString()
+        .padStart(2, '0');
+    }
+    this.timeIn12HourFormat =
+      this.formattedHours + ':' + this.minutes + ' ' + this.meridiem;
+  }
+
+  calculateLocalTime(timestamp: number, timezoneOffset: number): string {
+    // Convert the timestamp to milliseconds
+    const milliseconds: number = timestamp * 1000;
+
+    // Create a new Date object with the timestamp
+    const date: Date = new Date(milliseconds);
+
+    // Adjust the time based on the timezone offset
+    date.setUTCMinutes(date.getUTCMinutes() + timezoneOffset / 60);
+
+    // Extract hours and minutes
+    const hours: number = date.getUTCHours();
+    const minutes: number = date.getUTCMinutes();
+
+    // Format the time
+    let formattedHours: any = this.Makeit12hr(
+      hours.toString().padStart(2, '0')
+    );
+
+    const formattedMinutes: string = minutes.toString().padStart(2, '0');
+    // console.log(`${formattedHours}:${formattedMinutes}`);
+
+    return `${formattedHours}:${formattedMinutes}`;
+  }
+
+  updateTime() {
+    this.ChangeMins(); // Initial call
+    this.timeInterval = setInterval(() => {
+      this.ChangeMins();
+    }, 60000);
+  }
+
+  //=============================================================================================================================
   apikey = '1ccbda8b761658c716c51b4287213df7';
   city = 'New Delhi';
   units = 'metric';
@@ -118,12 +166,14 @@ export class WeatherCardComponent {
   humidity: number = 0;
   wind: number = 0;
   pressure: number = 0;
-  feels_like: number = 0;
+  feelslike: number = 0;
   windUnit: string = 'km/h';
   // pressureUnit: string = 'hPa'; //*check
   sunrise: string = '';
   sunset: string = '';
   img: string = '';
+  gojo: string = '';
+  gojoStyle: string = '';
 
   // link: string = `https://www.accuweather.com/en/in/${this.city}/204848/daily-weather-forecast/204848`;
 
@@ -166,16 +216,22 @@ export class WeatherCardComponent {
       let data = await response.json();
 
       if (data.cod === 404 || !data.main || !data.main.temp) {
-        // console.error('Weather data not found or incomplete:', data);
-        return false; // Return false to indicate failure
+        return;
       }
       // console.log(data);
-
-      // Process weather data as before
+      if (this.city == 'Shibuya') {
+        this.gojo = '';
+        this.gojoStyle = '';
+      }
 
       this.city = data.name;
+      if (this.city == 'Shibuya') {
+        this.gojo = '../../../assets/Images/Extras/Gojo.gif';
+        this.gojoStyle =
+          'margin-left: 7px;margin-right: -7px;margin-top: -12px;width: 40px';
+      }
       this.temp = data.main.temp;
-      this.feels_like = data.main.feels_like;
+      this.feelslike = data.main.feels_like;
       this.humidity = data.main.humidity;
       this.wind = data.wind.speed;
       this.weather = data.weather[0].main;
@@ -186,47 +242,24 @@ export class WeatherCardComponent {
       this.sunrise = this.calculateLocalTime(data.sys.sunrise, data.timezone);
       this.sunset = this.calculateLocalTime(data.sys.sunset, data.timezone);
 
-      // console.log(this.sunset);
+      this.updateTime();
 
-      return true; // Return true to indicate success
+      return true;
     } catch (error) {
-      // console.error('Error processing weather data:', error);
-      return false; // Return false to indicate failure
+      return false;
     }
   }
 
-  tempCity: string = '';
+  LastCitySearched: string = '';
 
   SearchCity(val: string) {
-    if (val.trim() === '' || this.city !== val) {
+    if (val.trim() === '' || this.LastCitySearched === val) {
       return;
     }
+
+    this.LastCitySearched = val;
+
     this.url = `https://api.openweathermap.org/data/2.5/weather?q=${val}&appid=${this.apikey}&units=${this.units}`;
     this.getWeatherData();
-  }
-
-  calculateLocalTime(timestamp: number, timezoneOffset: number): string {
-    // Convert the timestamp to milliseconds
-    const milliseconds: number = timestamp * 1000;
-
-    // Create a new Date object with the timestamp
-    const date: Date = new Date(milliseconds);
-
-    // Adjust the time based on the timezone offset
-    date.setUTCMinutes(date.getUTCMinutes() + timezoneOffset / 60);
-
-    // Extract hours and minutes
-    const hours: number = date.getUTCHours();
-    const minutes: number = date.getUTCMinutes();
-
-    // Format the time
-    let formattedHours: any = this.Makeit12hr(
-      hours.toString().padStart(2, '0')
-    );
-
-    const formattedMinutes: string = minutes.toString().padStart(2, '0');
-    // console.log(`${formattedHours}:${formattedMinutes}`);
-
-    return `${formattedHours}:${formattedMinutes}`;
   }
 }
