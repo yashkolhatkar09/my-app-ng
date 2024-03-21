@@ -27,13 +27,24 @@
                     />
                   </div>
                   <div class="col">
-                    <h2>{{ weather }}</h2>
+                    <h2 style="width: 10rem">{{ weather }}</h2>
                     <!-- !weater  -->
                   </div>
                 </div>
               </div>
               <div class="d-flex flex-column mr-3">
-                <h5>{{ city.charAt(0).toUpperCase() + city.slice(1) }}</h5>
+                <div
+                  style="display: inline-block; width: 200px"
+                  class="d-flex mr-3"
+                >
+                  <h5>{{ city }}</h5>
+                  <img
+                    src="{{ gojo }}"
+                    sizes=""
+                    srcset=""
+                    style="{{ gojoStyle }}"
+                  />
+                </div>
                 <!-- !ct  -->
                 <small
                   >{{ timeIn12HourFormat }} - {{ weekdayName }}, {{ date }}
@@ -97,7 +108,7 @@
                   </div>
                   <div class="col-6">
                     <p class="ml-auto">
-                      {{ RoundtheNum(feels_like) }}&#176;{{ typeTemp }}
+                      {{ RoundtheNum(feelslike) }}&#176;{{ typeTemp }}
                     </p>
                   </div>
                 </div>
@@ -151,6 +162,7 @@
             </div>
           </div>
         </div>
+
         <script
           type="text/javascript"
           src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"
