@@ -216,9 +216,10 @@ export class WeatherCardComponent {
       let data = await response.json();
 
       if (data.cod === 404 || !data.main || !data.main.temp) {
+        this.TestServiceService.showAlertForDuration(2000);
         return;
       }
-      // console.log(data);
+      console.log(data);
       if (this.city == 'Shibuya') {
         this.gojo = '';
         this.gojoStyle = '';
