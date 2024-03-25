@@ -29,7 +29,10 @@
         </li>
       </ul>
       <form class="d-flex" role="search">
-        <div class="form-check form-switch">
+        <div
+          class="form-check form-switch"
+          [style.display]="activeComponent === 'about' ? 'none' : 'block'"
+        >
           <input
             class="form-check-input"
             style="cursor: pointer"

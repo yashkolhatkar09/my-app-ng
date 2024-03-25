@@ -3,7 +3,9 @@ import { RouterOutlet } from '@angular/router';
 import { NavbrComponent } from './MyComponents/navbr/navbr.component';
 import { WeatherCardComponent } from './MyComponents/weather-card/weather-card.component';
 import { AlertComponent } from './MyComponents/alert/alert.component';
+// import { FooterComponent } from './MyComponents/footer/footer.component';
 import { RouterModule } from '@angular/router';
+
 // import { AboutComponent } from './MyComponents/about/about.component';
 @Component({
   selector: 'app-root',
@@ -18,4 +20,6 @@ import { RouterModule } from '@angular/router';
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
-export class AppComponent {}
+export class AppComponent {
+  title = 'WeatherWise';
+}

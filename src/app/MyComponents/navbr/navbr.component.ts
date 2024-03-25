@@ -1,16 +1,40 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
+import { filter } from 'rxjs/operators';
 import { TestServiceService } from '../../test-service.service';
 @Component({
   selector: 'app-navbr',
-  standalone: true,
-  imports: [],
   templateUrl: './navbr.component.html',
-  styleUrl: './navbr.component.css',
+  styleUrls: ['./navbr.component.css'],
+  standalone: true,
 })
-export class NavbrComponent {
-  constructor(public TestServiceService: TestServiceService) {}
+export class NavbrComponent implements OnInit {
+  activeComponent: string = '';
   title = 'WeatherWise';
   temp = 'C';
+
+  constructor(
+    public TestServiceService: TestServiceService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
+  ngOnInit(): void {
+    this.router.events
+      .pipe(filter((event) => event instanceof NavigationEnd))
+      .subscribe(() => {
+        // Get the first child route if available
+        const firstChild = this.route.snapshot.firstChild;
+        if (firstChild && firstChild.routeConfig) {
+          // Access the routeConfig and then its path if available
+          const currentRoute = firstChild.routeConfig.path;
+          this.activeComponent = currentRoute || '';
+        } else {
+          // Handle the case when there's no first child or routeConfig
+          this.activeComponent = '';
+        }
+        console.log(this.activeComponent);
+      });
+  }
 
   Changetemp() {
     this.temp = this.temp === 'C' ? 'F' : 'C';
