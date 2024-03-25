@@ -79,6 +79,10 @@ body {
 }
 
 .custom-link {
-    color: inherit; /* Inherit the color from its parent */
-    text-decoration: underline; /* Optionally, add underline for links */
+  color: inherit; /* Inherit the color from its parent */
+  text-decoration: underline; /* Optionally, add underline for links */
+}
+
+a {
+  text-decoration: none !important;
 }

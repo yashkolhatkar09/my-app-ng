@@ -32,7 +32,6 @@ export class NavbrComponent implements OnInit {
           // Handle the case when there's no first child or routeConfig
           this.activeComponent = '';
         }
-        console.log(this.activeComponent);
       });
   }
 
