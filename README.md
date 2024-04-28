@@ -1,27 +1,42 @@
-# MyAppNg
+# Weather App Using Angular
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.2.3.
+Link 🔗 :- https://my-app-ng.vercel.app/Weather-App-UsingAngular/
 
-## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+In today's fast-paced world, staying informed about the weather is crucial for planning our daily activities. With the rise of web and mobile technologies, accessing up-to-date weather information has become easier than ever. In this tutorial, we will explore how to build a simple yet powerful weather app using Angular, a popular JavaScript framework for building web applications.
 
-## Code scaffolding
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-## Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
 
-## Running unit tests
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-## Running end-to-end tests
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
 
-## Further help
+## Run Locally
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+Clone the project
+
+```bash
+  git clone https://github.com/yashkolhatkar09/my-app-ng.git
+```
+
+Go to the project directory
+
+```bash
+  cd my-project
+```
+
+Install dependencies
+
+```bash
+  npm install
+```
+
+Start the server
+
+```bash
+  npm start
+```
+![Screenshot 2024-04-28 140109](https://github.com/yashkolhatkar09/my-app-ng/assets/138909671/e047651c-1ced-433b-9bd0-23540d315bf4)
+
